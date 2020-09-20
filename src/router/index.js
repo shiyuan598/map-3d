@@ -32,7 +32,7 @@ const routes = [
   {
     path: '/detail',
     name: 'Detail',
-    component: () => import('../components/package/PackageList.vue'),
+    component: () => import('../components/package/PackageDetail.vue'),
   }
 ];
 

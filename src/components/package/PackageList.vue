@@ -68,7 +68,8 @@ export default {
       console.info("call program of id: " + id);
     },
     showDetail(id) {
-      console.info("show detail of id: " + id);
+      // this.$router.push({ name: 'CategoryItem', params: { category: category[0] }, query: { t: Date.now() } })
+      this.$router.push({ name: "Detail", params: { id } });
     }
   }
 };
