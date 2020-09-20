@@ -61,8 +61,8 @@ export default {
       });
       // 添加地图控件
       // this.map.addControl(new minemap.Scale());
+      // this.map.addControl(new minemap.Fullscreen());
       this.map.addControl(new minemap.Navigation(), "top-left");
-      this.map.addControl(new minemap.Fullscreen());
     },
     rotateMap() {
       if (this.map) {
@@ -72,7 +72,7 @@ export default {
         }
 
         const cen = this.map.getCenter().toArray();
-        this.map.setCenter([cen[0] + 0.1, cen[1]]);
+        this.map.setCenter([cen[0] - 0.2, cen[1]]);
         this.rotateAnimation = requestAnimationFrame(this.rotateMap.bind(this));
       }
     }
