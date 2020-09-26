@@ -1,12 +1,29 @@
 <template>
-  <div id="map"></div>
+  <div id="map">
+    <div class="list-container">
+      <div class="list-btn" @click="toggleVisible">
+        <span>数据列表</span>
+        <span
+          :class="tableVisible ? 'el-icon-s-unfold' : 'el-icon-s-fold'"
+        ></span>
+        <div class="container" v-show="tableVisible">
+          <List />
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
+import List from "./List";
 export default {
+  components: {
+    List
+  },
   data() {
     return {
-      map: null
+      map: null,
+      tableVisible: false
     };
   },
   mounted() {
@@ -31,8 +48,11 @@ export default {
         minZoom: 2.0,
         sphereRender: true /*三维球体模式*/
       });
+      this.map.on("click", e => {
+        console.info(e);
+      });
 
-      this.rotateMap();
+      //   this.rotateMap();
       // 添加图层
       this.map.on("load", () => {
         this.map.addSource("CONSTS.SOURCE.LIGHT_RASTER", {
@@ -70,11 +90,13 @@ export default {
           cancelAnimationFrame(this.rotateAnimation);
           this.rotateAnimation = null;
         }
-
         const cen = this.map.getCenter().toArray();
-        this.map.setCenter([cen[0] - 0.2, cen[1]]);
+        this.map.setCenter([cen[0] - 0.1, cen[1]]);
         this.rotateAnimation = requestAnimationFrame(this.rotateMap.bind(this));
       }
+    },
+    toggleVisible() {
+      this.tableVisible = !this.tableVisible;
     }
   }
 };
@@ -85,5 +107,36 @@ export default {
   width: 100vw;
   height: 100vh;
   overflow: hidden;
+}
+.list-btn {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  z-index: 1;
+  position: fixed;
+  right: 10px;
+  top: 50%;
+  transform: translate(0, -50%);
+  height: 120px;
+  width: 26px;
+  padding: 2px;
+  text-align: center;
+  border: solid 1px #dcdfe6;
+  background-color: #fff;
+  border-radius: 2px;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+  font-size: 14px;
+  font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB",
+    "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+  color: #333;
+}
+.container {
+  position: absolute;
+  top: 50%;
+  transform: translate(0, -50%);
+  right: 50px;
+  height: 300px;
+  width: 600px;
+  z-index: 1;
 }
 </style>
