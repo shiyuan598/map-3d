@@ -7,6 +7,7 @@
     <div class="blue">
       <slot name="blue" username="my user" :some="someStr"></slot>
     </div>
+    <el-date-picker v-model="date" type="daterange"></el-date-picker>
   </div>
 </template>
 
@@ -15,6 +16,7 @@ export default {
   name: "HelloWorld",
   data() {
     return {
+      date: '',
       someStr: "绿蚁新醅酒",
       message: "hello hello",
       user: {
