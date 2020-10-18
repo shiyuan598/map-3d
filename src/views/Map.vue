@@ -52,7 +52,7 @@ export default {
         console.info(e);
       });
 
-      //   this.rotateMap();
+      // this.rotateMap();
       // 添加图层
       this.map.on("load", () => {
         this.map.addSource("CONSTS.SOURCE.LIGHT_RASTER", {
@@ -61,7 +61,7 @@ export default {
             "//wprd01.is.autonavi.com/appmaptile?x={x}&y={y}&z={z}&lang=zh_cn&size=1&scl=1&style=7",
             "//wprd02.is.autonavi.com/appmaptile?x={x}&y={y}&z={z}&lang=zh_cn&size=1&scl=1&style=7",
             "//wprd03.is.autonavi.com/appmaptile?x={x}&y={y}&z={z}&lang=zh_cn&size=1&scl=1&style=7",
-            "//wprd04.is.autonavi.com/appmaptile?x={x}&y={y}&z={z}&lang=zh_cn&size=1&scl=1&style=7"
+            "//wprd04.is.autonavi.com/appmaptile?x={x}&.toStringy={y}&z={z}&lang=zh_cn&size=1&scl=1&style=7"
           ],
           tileSize: 256,
           tileUsage: "all" // 瓦片用途
