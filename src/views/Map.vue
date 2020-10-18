@@ -1,7 +1,8 @@
 <template>
   <div id="map">
     <div class="list-container">
-      <div class="list-btn" @click="toggleVisible">
+        <PackageTool />
+      <!-- <div class="list-btn" @click="toggleVisible">
         <span>数据列表</span>
         <span
           :class="tableVisible ? 'el-icon-s-unfold' : 'el-icon-s-fold'"
@@ -9,16 +10,19 @@
         <div class="container" v-show="tableVisible">
           <List />
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
 
 <script>
-import List from "./List";
+// import List from "./List";
+import PackageTool from '../components/package/PackageTool';
+
 export default {
   components: {
-    List
+    // List
+    PackageTool
   },
   data() {
     return {
