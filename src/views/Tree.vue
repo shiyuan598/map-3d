@@ -6,21 +6,36 @@
       :key="index"
       v-for="(item, index) in fieldArr"
     >
-      {{ item.name }} - {{ item.type }} - {{ item.level }}
-      <el-button
-        type="primary"
-        icon="el-icon-plus"
-        circle
-        :disabled="item.level >= 2"
-        @click="add(index)"
-      ></el-button>
-      <el-button
-        type="danger"
-        icon="el-icon-minus"
-        circle
-        @click="remove(index)"
-      ></el-button>
+      <div class="input">
+        <el-input
+          v-model="item.name"
+          size="small"
+          placeholder="请输入名称"
+        ></el-input>
+        -
+        <el-input
+          v-model="item.type"
+          size="small"
+          placeholder="请输入类型"
+        ></el-input>
+      </div>
+      <div class="btn">
+        <el-button
+          type="primary"
+          icon="el-icon-plus"
+          circle
+          :disabled="item.level >= 2"
+          @click="add(index)"
+        ></el-button>
+        <el-button
+          type="danger"
+          icon="el-icon-minus"
+          circle
+          @click="remove(index)"
+        ></el-button>
+      </div>
     </div>
+    <el-button class="success-btn" type="success" @click="sure">成功</el-button>
   </div>
 </template>
 
@@ -148,6 +163,9 @@ export default {
         }
       }
       this.fieldArr.splice(index, count);
+    },
+    sure() {
+      console.info(JSON.stringify(this.fieldArr));
     }
   }
 };
@@ -155,17 +173,28 @@ export default {
 
 <style scoped>
 .field {
-  border: 1px solid #555;
-  margin: 5px;
-  width: 300px;
+  margin: 20px;
   height: 30px;
   line-height: 30px;
   padding: 3px;
+  display: flex;
+}
+.input {
+  display: flex;
+}
+.btn {
+  margin-left: 10px;
+}
+.el-button.is-circle {
+  padding: 5px;
 }
 .indent1 {
-  margin-left: 2rem;
+  margin-left: 3rem;
 }
 .indent2 {
-  margin-left: 4rem;
+  margin-left: 6rem;
+}
+.success-btn {
+  margin-left: 260px;
 }
 </style>
