@@ -31,9 +31,14 @@ const routes = [
     component: () => import("../views/Map.vue")
   },
   {
-    path: "/",
+    path: "/Table",
     name: "Table",
     component: () => import("../views/Table.vue")
+  },
+  {
+    path: "/",
+    name: "Tree",
+    component: () => import("../views/Tree.vue")
   },
   {
     path: "/list",
