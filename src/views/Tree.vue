@@ -431,6 +431,81 @@ export default {
       // 展开树为一层
       console.info(this.tree2Arr(this.arr2Tree(this.fieldArr)));
     },
+    arr2Obj(arr) {
+      console.info(arr);
+      let obj = {
+        properties: {}
+      };
+      // 遍历数组arr，查看每一个元素item
+      // 1.如果lavel = 0, 直接挂载到obj.properties上
+      // 添加 fieldName属性，该属性为对象，值为{ type: fieldType } => obj.properties.fieldName = { type: fieldType }
+      //   此时obj为如下格式：
+      //   {
+      //       properties: {
+      //           name1: {
+      //               type: type1
+      //           }
+      //       }
+      //   }
+
+      // 2.如果level = 1，从arr的当前位置向前查找到一个level = 0的元素gitem，（可以把arr截取到当前位置，再根据level = 0 过滤，最后一个元素）
+      // gitem的name就是要挂接到对象的名称
+      //   if(obj.properties[gitem.name].properties){
+      //     obj.properties[gitem.name].properties = {
+      //       fieldName: {
+      //         type: fieldType
+      //       }
+      //     }
+      //   } else {
+      //     obj.properties[gitem.name].properties.fieldName = { type: fieldType }
+      //   }
+
+      // 3.如果level = 2，从arr的当前位置向前查找到一个level = 1的元素fitem，（可以把arr截取到当前位置，再根据level = 1 过滤，最后一个元素）
+      // fitem的name就是要挂接到对象的名称
+      //   if(obj.properties[gitem.name].properties[fitem.name].properties){
+      //     obj.properties[gitem.name].properties[fitem.name].properties = {
+      //       fieldName: {
+      //         type: fieldType
+      //       }
+      //     }
+      //   } else {
+      //     obj.properties[gitem.name].properties[fitem.name].properties.fieldName = { type: fieldType }
+      //   }
+
+      return obj;
+    },
+    obj2Arr(obj) {
+      // const indexFormat = {
+      //     "mappings": {
+      //         "type": "object",
+      //         "properties": {
+      //             "region": {
+      //                 "type": "keyword"
+      //             },
+      //             "manager": {
+      //                 "type": "object",
+      //                 "properties": {
+      //                     "age": {
+      //                         "type": "integer"
+      //                     },
+      //                     "name": {
+      //                         "type": "object",
+      //                         "properties": {
+      //                             "first": {
+      //                                 "type": "text"
+      //                             },
+      //                             "last": {
+      //                                 "type": "text"
+      //                             }
+      //                         }
+      //                     }
+      //                 }
+      //             }
+      //         }
+      //     }
+      // }
+      console.info(obj);
+    },
     arr2Tree(arr) {
       let tree = [];
       for (let i = 0; i < arr.length; i++) {
@@ -455,7 +530,6 @@ export default {
       return tree;
     },
     tree2Arr(tree) {
-      console.info(tree);
       let arr = [];
       for (let i = 0; i < tree.length; i++) {
         // 第一层
