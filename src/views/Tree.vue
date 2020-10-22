@@ -62,19 +62,347 @@ export default {
           type: "type02",
           level: 0
         }
+      ],
+      attributeArr: [
+        {
+          name: "number_of_shards",
+          value: 1
+        },
+        {
+          name: "number_of_routing_shards",
+          value: 5
+        },
+        {
+          name: "shard.check_on_startup",
+          value: false
+        },
+        {
+          name: "codec",
+          value: "default"
+        },
+        {
+          name: "routing_partition_size",
+          value: 1
+        },
+        {
+          name: "soft_deletes.enabled",
+          value: true
+        },
+        {
+          name: "soft_deletes.retention_lease.period",
+          value: "12h"
+        },
+        {
+          name: "load_fixed_bitset_filters_eagerly",
+          value: true
+        },
+        {
+          name: "hidden",
+          value: false
+        },
+        {
+          name: "auto_expand_replicas",
+          value: false
+        },
+        {
+          name: "search.idle.after",
+          value: "30s"
+        },
+        {
+          name: "max_inner_result_window",
+          value: 100
+        },
+        {
+          name: "max_rescore_window",
+          value: 10000
+        },
+        {
+          name: "max_docvalue_fields_search",
+          value: 100
+        },
+        {
+          name: "max_script_fields",
+          value: 32
+        },
+        {
+          name: "max_ngram_diff",
+          value: 1
+        },
+        {
+          name: "max_shingle_diff",
+          value: 3
+        },
+        {
+          name: "max_refresh_listeners",
+          value: 1000
+        },
+        {
+          name: "analyze.max_token_count",
+          value: 10000
+        },
+        {
+          name: "highlight.max_analyzed_offset",
+          value: 1000000
+        },
+        {
+          name: "max_terms_count",
+          value: 65536
+        },
+        {
+          name: "max_regex_length",
+          value: 1000
+        },
+        {
+          name: "routing.allocation.enable",
+          value: "all"
+        },
+        {
+          name: "routing.rebalance.enable",
+          value: "all"
+        },
+        {
+          name: "gc_deletes",
+          value: "60s"
+        },
+        {
+          name: "number_of_replicas",
+          value: 1
+        },
+        {
+          name: "refresh_interval",
+          value: 1
+        },
+        {
+          name: "max_result_window",
+          value: 10000
+        }
+      ],
+      filedTypeList: [
+        {
+          value: "binary",
+          label: "binary"
+        },
+        {
+          value: "boolean",
+          label: "boolean"
+        },
+        {
+          value: "keyword",
+          label: "keyword"
+        },
+        {
+          value: "long",
+          label: "long"
+        },
+        {
+          value: " double",
+          label: " double"
+        },
+        {
+          value: "date",
+          label: "date"
+        },
+        {
+          value: "object",
+          label: "object"
+        },
+        {
+          value: "text",
+          label: "text"
+        },
+        {
+          value: "geo_point",
+          label: "geo_point"
+        },
+        {
+          value: "geo_shape",
+          label: "geo_shape"
+        },
+        {
+          value: "",
+          label: ""
+        },
+        {
+          value: "binary",
+          label: "binary"
+        },
+        {
+          value: "boolean",
+          label: "boolean"
+        },
+        {
+          value: "keyword",
+          label: "keyword"
+        },
+        {
+          value: "constant_keyword ",
+          label: "constant_keyword "
+        },
+        {
+          value: "wildcard",
+          label: "wildcard"
+        },
+        {
+          value: "long",
+          label: "long"
+        },
+        {
+          value: "integer",
+          label: "integer"
+        },
+        {
+          value: "short",
+          label: "short"
+        },
+        {
+          value: "byte",
+          label: "byte"
+        },
+        {
+          value: "double",
+          label: "double"
+        },
+        {
+          value: "float",
+          label: "float"
+        },
+        {
+          value: "half_float",
+          label: "half_float"
+        },
+        {
+          value: "scaled_float",
+          label: "scaled_float"
+        },
+        {
+          value: "date",
+          label: "date"
+        },
+        {
+          value: "date_nanos",
+          label: "date_nanos"
+        },
+        {
+          value: "alias",
+          label: "alias"
+        },
+        {
+          value: "",
+          label: ""
+        },
+        {
+          value: "object",
+          label: "object"
+        },
+        {
+          value: "flattened",
+          label: "flattened"
+        },
+        {
+          value: "nested",
+          label: "nested"
+        },
+        {
+          value: "",
+          label: ""
+        },
+        {
+          value: "integer_range",
+          label: "integer_range"
+        },
+        {
+          value: "float_range",
+          label: "float_range"
+        },
+        {
+          value: "long_range",
+          label: "long_range"
+        },
+        {
+          value: "double_range",
+          label: "double_range"
+        },
+        {
+          value: "date_range",
+          label: "date_range"
+        },
+        {
+          value: "ip_range",
+          label: "ip_range"
+        },
+        {
+          value: "ip",
+          label: "ip"
+        },
+        {
+          value: "murmur3",
+          label: "murmur3"
+        },
+        {
+          value: "histogram",
+          label: "histogram"
+        },
+        {
+          value: "text",
+          label: "text"
+        },
+        {
+          value: "annotated-text",
+          label: "annotated-text"
+        },
+        {
+          value: "completion",
+          label: "completion"
+        },
+        {
+          value: "search_as_you_type",
+          label: "search_as_you_type"
+        },
+        {
+          value: "token_count",
+          label: "token_count"
+        },
+        {
+          value: "dense_vector",
+          label: "dense_vector"
+        },
+        {
+          value: "rank_feature",
+          label: "rank_feature"
+        },
+        {
+          value: "rank_features",
+          label: "rank_features"
+        },
+        {
+          value: "geo_point",
+          label: "geo_point"
+        },
+        {
+          value: "geo_shape",
+          label: "geo_shape"
+        },
+        {
+          value: "point",
+          label: "point"
+        },
+        {
+          value: "shape",
+          label: "shape"
+        }
       ]
     };
   },
   methods: {
     add(index) {
-      if (index !== 'last') {
+      if (index !== "last") {
         let level = this.fieldArr[index].level;
         this.fieldArr.splice(index + 1, 0, {
           name: "new",
           type: "new",
           level: level + 1
         });
-      } else if(index === 'last') {
+      } else if (index === "last") {
         this.fieldArr.push({
           name: "new",
           type: "new",
