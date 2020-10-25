@@ -1,19 +1,49 @@
 <template>
-    <div>
-        <el-button class="add-btn" type="primary" icon="el-icon-plus" circle @click="add('last')"></el-button>
-        <div class="field" :class="'indent' + item.level" :key="index" v-for="(item, index) in fieldArr">
-            <div class="input">
-                <el-input v-model="item.name" size="small" placeholder="请输入名称"></el-input>
-                -
-                <el-input v-model="item.type" size="small" placeholder="请输入类型"></el-input>
-            </div>
-            <div class="btn">
-                <el-button type="primary" icon="el-icon-plus" circle :disabled="item.level >= 2" @click="add(index)"></el-button>
-                <el-button type="danger" icon="el-icon-minus" circle @click="remove(index)"></el-button>
-            </div>
-        </div>
-        <el-button class="success-btn" type="success" @click="sure">成功</el-button>
+  <div>
+    <el-button
+      class="add-btn"
+      type="primary"
+      icon="el-icon-plus"
+      circle
+      @click="add('last')"
+    ></el-button>
+    <div
+      class="field"
+      :class="'indent' + item.level"
+      :key="index"
+      v-for="(item, index) in fieldList"
+    >
+      <div class="input">
+        <el-input
+          v-model="item.name"
+          size="small"
+          placeholder="请输入名称"
+        ></el-input>
+        -
+        <el-input
+          v-model="item.type"
+          size="small"
+          placeholder="请输入类型"
+        ></el-input>
+      </div>
+      <div class="btn">
+        <el-button
+          type="primary"
+          icon="el-icon-plus"
+          circle
+          :disabled="item.level >= 2"
+          @click="add(index)"
+        ></el-button>
+        <el-button
+          type="danger"
+          icon="el-icon-minus"
+          circle
+          @click="remove(index)"
+        ></el-button>
+      </div>
     </div>
+    <el-button class="success-btn" type="success" @click="sure">成功</el-button>
+  </div>
 </template>
 
 <script>
@@ -21,6 +51,7 @@ export default {
   name: "tree",
   data() {
     return {
+      fieldList: [],
       fieldArr: [
         {
           name: "name01",
@@ -425,19 +456,68 @@ export default {
       this.fieldArr.splice(index, count);
     },
     sure() {
-      console.info(JSON.stringify(this.fieldArr));
+      // console.info(JSON.stringify(this.fieldArr));
+      console.info(this.fieldArr);
+      // 把数组转为对象
+      console.info(this.arr2Obj(this.fieldArr));
+      // 把对象转为数组
+      console.info(this.obj2Arr(this.arr2Obj(this.fieldArr).properties));
+      this.fieldList = this.obj2Arr(this.arr2Obj(this.fieldArr).properties);
+
       // 把数组转为树
-      console.info(this.arr2Tree(this.fieldArr));
+      // console.info(this.arr2Tree(this.fieldArr));
       // 展开树为一层
-      console.info(this.tree2Arr(this.arr2Tree(this.fieldArr)));
+      // console.info(this.tree2Arr(this.arr2Tree(this.fieldArr)));
     },
     arr2Obj(arr) {
-      console.info(arr);
+      // console.info(arr);
       let obj = {
         properties: {}
       };
+      let gitem = null; // 上级的上级元素
+      let fitem = null; // 上级元素
+      for (let i = 0; i < arr.length; i++) {
+        const item = arr[i];
+        if (item.level === 0) {
+          obj.properties[item.name] = {
+            type: item.type
+          };
+          gitem = item;
+        }
+        if (item.level === 1) {
+          if (!obj.properties[gitem.name].properties) {
+            obj.properties[gitem.name].properties = {};
+            obj.properties[gitem.name].properties[item.name] = {
+              type: item.type
+            };
+          } else {
+            obj.properties[gitem.name].properties[item.name] = {
+              type: item.type
+            };
+          }
+          fitem = item;
+        }
+        if (item.level === 2) {
+          if (!obj.properties[gitem.name].properties[fitem.name].properties) {
+            obj.properties[gitem.name].properties[fitem.name].properties = {};
+            obj.properties[gitem.name].properties[fitem.name].properties[
+              item.name
+            ] = {
+              type: item.type
+            };
+          } else {
+            obj.properties[gitem.name].properties[fitem.name].properties[
+              item.name
+            ] = {
+              type: item.type
+            };
+          }
+        }
+      }
+      return obj;
+
       // 遍历数组arr，查看每一个元素item
-      // 1.如果lavel = 0, 直接挂载到obj.properties上
+      // 1.如果level = 0, 直接挂载到obj.properties上
       // 添加 fieldName属性，该属性为对象，值为{ type: fieldType } => obj.properties.fieldName = { type: fieldType }
       //   此时obj为如下格式：
       //   {
@@ -471,10 +551,53 @@ export default {
       //   } else {
       //     obj.properties[gitem.name].properties[fitem.name].properties.fieldName = { type: fieldType }
       //   }
-
-      return obj;
     },
     obj2Arr(obj) {
+      // console.info(obj);
+      let arr = [];
+      for (const i in obj) {
+        // eslint-disable-next-line no-prototype-builtins
+        if (obj.hasOwnProperty(i)) {
+          arr.push({ level: 0, name: i, type: obj[i].type });
+          if (typeof obj[i].properties === "object") {
+            for (const j in obj[i].properties) {
+              // eslint-disable-next-line no-prototype-builtins
+              if (obj[i].properties.hasOwnProperty(j)) {
+                arr.push({
+                  level: 1,
+                  name: j,
+                  type: obj[i].properties[j].type
+                });
+                if (typeof obj[i].properties[j].properties === "object") {
+                  for (const k in obj[i].properties[j].properties) {
+                    // eslint-disable-next-line no-prototype-builtins
+                    if (obj[i].properties[j].properties.hasOwnProperty(k)) {
+                      arr.push({
+                        level: 2,
+                        name: k,
+                        type: obj[i].properties[j].properties[k].type
+                      });
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+      return arr;
+
+      // 看情况是obj或obj.properties
+      // 1.使用for i in obj的方式得到第一层
+      // 存入数组
+      // arr.push({ level:0, name: i, type: obj[i].type})
+      // 2.判断第二层 if(typeof obj[i].properties === 'object')
+      // 继续遍历for j in obj[i].properties
+      // arr.push({ level:1, name: j, type: obj[i].properties[j].type})
+      // 2.判断第三层 if(typeof obj[i].properties[j].properties === 'object')
+      // 继续遍历for k in obj[i].properties[j].properties
+      // arr.push({ level:2, name: k, type: obj[i].properties[j].properties[k].type})
+
       // const indexFormat = {
       //     "mappings": {
       //         "type": "object",
@@ -504,7 +627,6 @@ export default {
       //         }
       //     }
       // }
-      console.info(obj);
     },
     arr2Tree(arr) {
       let tree = [];
@@ -577,33 +699,33 @@ export default {
 
 <style scoped>
 .add-btn {
-    margin-right: 20px;
-    margin-left: 400px;
+  margin-right: 20px;
+  margin-left: 400px;
 }
 .field {
-    margin: 20px;
-    height: 30px;
-    line-height: 30px;
-    padding: 3px;
-    display: flex;
-    justify-content: space-between;
+  margin: 20px;
+  height: 30px;
+  line-height: 30px;
+  padding: 3px;
+  display: flex;
+  justify-content: space-between;
 }
 .input {
-    display: flex;
+  display: flex;
 }
 .btn {
-    margin-left: 10px;
+  margin-left: 10px;
 }
 .el-button.is-circle {
-    padding: 2px;
+  padding: 2px;
 }
 .indent1 {
-    margin-left: 3rem;
+  margin-left: 3rem;
 }
 .indent2 {
-    margin-left: 6rem;
+  margin-left: 6rem;
 }
 .success-btn {
-    margin-left: 260px;
+  margin-left: 260px;
 }
 </style>
