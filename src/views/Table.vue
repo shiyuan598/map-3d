@@ -1,12 +1,14 @@
 <template>
   <div>
     <el-table
+      @selection-change="handleSelection"
       class="tableLimit"
       :data="tableData"
       border
-      :show-header="false"
+      :show-header="true"
       stripe
     >
+      <el-table-column type="selection" width="50"></el-table-column>
       <el-table-column prop="name" label="名称" width="180"> </el-table-column>
       <el-table-column prop="value" label="内容"> </el-table-column>
     </el-table>
@@ -40,6 +42,11 @@ export default {
         }
       ]
     };
+  },
+  methods: {
+    handleSelection(val) {
+      console.info(val);
+    }
   }
 };
 </script>
