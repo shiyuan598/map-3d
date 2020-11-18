@@ -6,10 +6,9 @@
       border
       :show-header="false"
       stripe
-      style="width: 60%"
     >
       <el-table-column prop="name" label="名称" width="180"> </el-table-column>
-      <el-table-column prop="value" label="内容" width="320"> </el-table-column>
+      <el-table-column prop="value" label="内容"> </el-table-column>
     </el-table>
   </div>
 </template>

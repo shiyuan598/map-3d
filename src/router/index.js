@@ -31,14 +31,19 @@ const routes = [
     component: () => import("../views/Map.vue")
   },
   {
-    path: "/Table",
+    path: "/",
     name: "Table",
     component: () => import("../views/Table.vue")
   },
   {
-    path: "/",
+    path: "/Tree",
     name: "Tree",
     component: () => import("../views/Tree.vue")
+  },
+  {
+    path: "/Region",
+    name: "Region",
+    component: () => import("../views/Region.vue")
   },
   {
     path: "/form",

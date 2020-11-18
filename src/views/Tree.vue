@@ -11,7 +11,7 @@
       class="field"
       :class="'indent' + item.level"
       :key="index"
-      v-for="(item, index) in fieldList"
+      v-for="(item, index) in fieldArr"
     >
       <div class="input">
         <el-input
