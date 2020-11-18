@@ -1,33 +1,14 @@
 <template>
-  <div id="map">
-    <div class="list-container">
-        <PackageTool />
-      <!-- <div class="list-btn" @click="toggleVisible">
-        <span>数据列表</span>
-        <span
-          :class="tableVisible ? 'el-icon-s-unfold' : 'el-icon-s-fold'"
-        ></span>
-        <div class="container" v-show="tableVisible">
-          <List />
-        </div>
-      </div> -->
-    </div>
-  </div>
+    <div id="map"></div>
 </template>
 
 <script>
-// import List from "./List";
-import PackageTool from '../components/package/PackageTool';
-
 export default {
-  components: {
-    // List
-    PackageTool
-  },
   data() {
     return {
       map: null,
-      tableVisible: false
+      tableVisible: false,
+      popup: null
     };
   },
   mounted() {
@@ -83,10 +64,34 @@ export default {
           }
         });
       });
+      this.map.on("zoom", () => {
+        console.info(this.map.getZoom());
+        if (this.map.getZoom() > 10) {
+          this.addPopup("好了好了，不要再放大地图！");
+        }
+        if (this.map.getZoom() > 15) {
+          this.popup.remove();
+          this.popup = null;
+        }
+      });
       // 添加地图控件
       // this.map.addControl(new minemap.Scale());
       // this.map.addControl(new minemap.Fullscreen());
       this.map.addControl(new minemap.Navigation(), "top-left");
+      this.addPopup("请放大地图！");
+    },
+    addPopup(info) {
+      if (this.popup) {
+        this.popup.setHTML(`<span>${info}</span>`);
+      } else {
+        this.popup = new minemap.Popup({
+          closeOnClick: false,
+          closeButton: false
+        });
+        this.popup.trackPointer();
+        this.popup.addTo(this.map);
+        this.popup.setHTML(`<span>${info}</span>`);
+      }
     },
     rotateMap() {
       if (this.map) {
@@ -108,39 +113,39 @@ export default {
 
 <style scoped>
 #map {
-  width: 100vw;
-  height: 100vh;
-  overflow: hidden;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
 }
 .list-btn {
-  display: flex;
-  flex-flow: column;
-  justify-content: center;
-  z-index: 1;
-  position: fixed;
-  right: 10px;
-  top: 50%;
-  transform: translate(0, -50%);
-  height: 120px;
-  width: 26px;
-  padding: 2px;
-  text-align: center;
-  border: solid 1px #dcdfe6;
-  background-color: #fff;
-  border-radius: 2px;
-  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
-  font-size: 14px;
-  font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB",
-    "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
-  color: #333;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    z-index: 1;
+    position: fixed;
+    right: 10px;
+    top: 50%;
+    transform: translate(0, -50%);
+    height: 120px;
+    width: 26px;
+    padding: 2px;
+    text-align: center;
+    border: solid 1px #dcdfe6;
+    background-color: #fff;
+    border-radius: 2px;
+    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+    font-size: 14px;
+    font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB",
+        "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+    color: #333;
 }
 .container {
-  position: absolute;
-  top: 50%;
-  transform: translate(0, -50%);
-  right: 50px;
-  height: 300px;
-  width: 600px;
-  z-index: 1;
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
+    right: 50px;
+    height: 300px;
+    width: 600px;
+    z-index: 1;
 }
 </style>
