@@ -1,18 +1,11 @@
 <template>
-  <div>
-    <el-table
-      @selection-change="handleSelection"
-      class="tableLimit"
-      :data="tableData"
-      border
-      :show-header="true"
-      stripe
-    >
-      <el-table-column type="selection" width="50"></el-table-column>
-      <el-table-column prop="name" label="名称" width="180"> </el-table-column>
-      <el-table-column prop="value" label="内容"> </el-table-column>
-    </el-table>
-  </div>
+    <div>
+        <el-table @selection-change="handleSelection" class="tableLimit" :data="tableData" border :show-header="true" stripe>
+            <el-table-column type="selection" width="50"></el-table-column>
+            <el-table-column prop="name" label="名称" width="180"> </el-table-column>
+            <el-table-column prop="value" label="内容"> </el-table-column>
+        </el-table>
+    </div>
 </template>
 
 <script>
@@ -53,10 +46,10 @@ export default {
 
 <style>
 .tableLimit tr td .cell {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 5; /*可以显示的行数，超出部分用...表示 */
-  -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 5; /*可以显示的行数，超出部分用...表示 */
+    -webkit-box-orient: vertical;
 }
 </style>

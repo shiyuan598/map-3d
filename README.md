@@ -1,4 +1,4 @@
-# map-3d
+# demo
 
 ## Project setup
 ```

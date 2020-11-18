@@ -1,71 +1,69 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Home from "../views/Home.vue";
-import HelloWorld from "../components/HelloWorld";
 
 Vue.use(VueRouter);
 
-const routes = [
-  {
-    path: "/home",
-    name: "Home",
-    component: Home
-  },
-  {
-    path: "/helloworld",
-    name: "HelloWorld",
-    component: HelloWorld
-  },
-  {
-    path: "/about",
-    name: "About",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/About.vue")
-  },
-  {
-    path: "/map",
-    name: "Map",
-    component: () => import("../views/Map.vue")
-  },
-  {
-    path: "/",
-    name: "Table",
-    component: () => import("../views/Table.vue")
-  },
-  {
-    path: "/Tree",
-    name: "Tree",
-    component: () => import("../views/Tree.vue")
-  },
-  {
-    path: "/Region",
-    name: "Region",
-    component: () => import("../views/Region.vue")
-  },
-  {
-    path: "/form",
-    name: "Form",
-    component: () => import("../views/Form.vue")
-  },
-  {
-    path: "/list",
-    name: "List",
-    component: () => import("../components/package/PackageList.vue")
-  },
-  {
-    path: "/detail",
-    name: "Detail",
-    component: () => import("../components/package/PackageDetail.vue")
-  }
+const routes = [{
+        path: "/",
+        name: "Index",
+        component: () => import("../views/Index.vue")
+    },
+    {
+        path: "/home",
+        name: "Home",
+        component: () => import("../views/Home.vue")
+    },
+    {
+        path: "/helloworld",
+        name: "HelloWorld",
+        component: () => import("../components/HelloWorld.vue")
+    },
+    {
+        path: "/DatePicker",
+        name: "DatePicker",
+        component: () => import("../views/DatePicker.vue")
+    },
+    {
+        path: "/map",
+        name: "Map",
+        component: () => import("../views/Map.vue")
+    },
+    {
+        path: "/table",
+        name: "Table",
+        component: () => import("../views/Table.vue")
+    },
+    {
+        path: "/Tree",
+        name: "Tree",
+        component: () => import("../views/Tree.vue")
+    },
+    {
+        path: "/region",
+        name: "Region",
+        component: () => import("../views/Region.vue")
+    },
+    {
+        path: "/form",
+        name: "Form",
+        component: () => import("../views/Form.vue")
+    },
+    {
+        path: "/list",
+        name: "List",
+        component: () => import("../components/package/PackageList.vue")
+    },
+    {
+        path: "/detail",
+        name: "Detail",
+        component: () => import("../components/package/PackageDetail.vue")
+    }
 ];
 
 const router = new VueRouter({
-  mode: "history",
-  base: process.env.BASE_URL,
-  routes
+    mode: "history",
+    base: process.env.BASE_URL,
+    routes
 });
 
 export default router;
