@@ -15,8 +15,12 @@
           {{ item.desc }}
         </div>
         <div class="footer">
-          <el-button size="mini" @click="callProgram(item.id)" type="primary">调用程序</el-button>
-          <el-button size="mini" @click="showDetail(item.id)" type="primary">查看详情</el-button>
+          <el-button size="mini" @click="callProgram(item.id)" type="primary"
+            >调用程序</el-button
+          >
+          <el-button size="mini" @click="showDetail(item.id)" type="primary"
+            >查看详情</el-button
+          >
         </div>
       </div>
     </div>

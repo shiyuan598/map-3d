@@ -16,7 +16,7 @@ export default {
   name: "HelloWorld",
   data() {
     return {
-      date: '',
+      date: "",
       someStr: "绿蚁新醅酒",
       message: "hello hello",
       user: {

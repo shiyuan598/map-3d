@@ -6,7 +6,7 @@ module.exports = {
   globals: {
     minemap: true
   },
-  extends: ["plugin:vue/essential"],
+  extends: ["plugin:vue/essential", "eslint:recommended", "@vue/prettier"],
   parserOptions: {
     parser: "babel-eslint"
   },

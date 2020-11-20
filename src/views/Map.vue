@@ -1,5 +1,5 @@
 <template>
-    <div id="map"></div>
+  <div id="map"></div>
 </template>
 
 <script>
@@ -27,7 +27,7 @@ export default {
         container: "map",
         style: "//mineservice.minedata.cn/service/solu/style/id/12877",
         center: [116.46, 39.92],
-        zoom: 1,
+        zoom: 16,
         pitch: 0,
         maxZoom: 21,
         minZoom: 2.0,
@@ -37,7 +37,6 @@ export default {
         console.info(e);
       });
 
-      // this.rotateMap();
       // 添加图层
       this.map.on("load", () => {
         this.map.addSource("CONSTS.SOURCE.LIGHT_RASTER", {
@@ -63,49 +62,23 @@ export default {
             "sphere-raster-opacity": 1 // 栅格图层的不透明度，默认值为1，值类型为number
           }
         });
-      });
-      this.map.on("zoom", () => {
-        console.info(this.map.getZoom());
-        if (this.map.getZoom() > 10) {
-          this.addPopup("好了好了，不要再放大地图！");
-        }
-        if (this.map.getZoom() > 15) {
-          this.popup.remove();
-          this.popup = null;
-        }
-      });
-      // 添加地图控件
-      // this.map.addControl(new minemap.Scale());
-      // this.map.addControl(new minemap.Fullscreen());
-      this.map.addControl(new minemap.Navigation(), "top-left");
-      this.addPopup("请放大地图！");
-    },
-    addPopup(info) {
-      if (this.popup) {
-        this.popup.setHTML(`<span>${info}</span>`);
-      } else {
-        this.popup = new minemap.Popup({
-          closeOnClick: false,
-          closeButton: false
+
+        const edit = new minemap.edit.init(this.map, {
+          boxSelect: true,
+          touchEnabled: true,
+          displayControlsDefault: true,
+          showButtons: false
         });
-        this.popup.trackPointer();
-        this.popup.addTo(this.map);
-        this.popup.setHTML(`<span>${info}</span>`);
-      }
-    },
-    rotateMap() {
-      if (this.map) {
-        if (this.rotateAnimation) {
-          cancelAnimationFrame(this.rotateAnimation);
-          this.rotateAnimation = null;
-        }
-        const cen = this.map.getCenter().toArray();
-        this.map.setCenter([cen[0] - 0.1, cen[1]]);
-        this.rotateAnimation = requestAnimationFrame(this.rotateMap.bind(this));
-      }
-    },
-    toggleVisible() {
-      this.tableVisible = !this.tableVisible;
+
+        edit.onBtnCtrlActive("polygon", {
+          style: {
+            fillColor: "red",
+            fillOpacity: 0.1,
+            fillOutlineColor: "red",
+            fillOutlineWidth: 2
+          }
+        });
+      });
     }
   }
 };
@@ -113,39 +86,8 @@ export default {
 
 <style scoped>
 #map {
-    width: 100vw;
-    height: 100vh;
-    overflow: hidden;
-}
-.list-btn {
-    display: flex;
-    flex-flow: column;
-    justify-content: center;
-    z-index: 1;
-    position: fixed;
-    right: 10px;
-    top: 50%;
-    transform: translate(0, -50%);
-    height: 120px;
-    width: 26px;
-    padding: 2px;
-    text-align: center;
-    border: solid 1px #dcdfe6;
-    background-color: #fff;
-    border-radius: 2px;
-    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
-    font-size: 14px;
-    font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB",
-        "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
-    color: #333;
-}
-.container {
-    position: absolute;
-    top: 50%;
-    transform: translate(0, -50%);
-    right: 50px;
-    height: 300px;
-    width: 600px;
-    z-index: 1;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
 }
 </style>

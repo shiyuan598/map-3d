@@ -2,16 +2,31 @@
   <div class="container">
     <div class="table">
       <div class="left">
-        <div @click="categoryChange(item, index)" :key="index" :class="currentCategory === index ? 'current' : ''" class="category" v-for="(item, index) in category">
+        <div
+          @click="categoryChange(item, index)"
+          :key="index"
+          :class="currentCategory === index ? 'current' : ''"
+          class="category"
+          v-for="(item, index) in category"
+        >
           {{ item }}
         </div>
       </div>
       <div class="right">
         <div class="title"><span></span>{{ data.title }}</div>
-        <div class="subtitle" :key="index" v-for="(item, index) in data.body.content">
+        <div
+          class="subtitle"
+          :key="index"
+          v-for="(item, index) in data.body.content"
+        >
           {{ item.subtitle }}
           <p>{{ item.desc }}</p>
-          <el-table :border="true" :show-header="false" :data="item.table" v-if="item.table">
+          <el-table
+            :border="true"
+            :show-header="false"
+            :data="item.table"
+            v-if="item.table"
+          >
             <el-table-column prop="value1" label="日期" width="180">
             </el-table-column>
             <el-table-column prop="value2" label="日期" width="180">

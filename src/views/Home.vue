@@ -12,9 +12,12 @@
         {{ address }}
       </template>
       <template #pink="data">
-        <span>{{ data.pig.name }}</span><br />
-        <span>{{ data.pig.gender }}</span><br />
-        <span>{{ data.pig.age }}</span><br />
+        <span>{{ data.pig.name }}</span
+        ><br />
+        <span>{{ data.pig.gender }}</span
+        ><br />
+        <span>{{ data.pig.age }}</span
+        ><br />
         Lorem ipsum dolor sit amet.
       </template>
     </HelloWorld>

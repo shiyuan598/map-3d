@@ -5,12 +5,16 @@
     label-width="100px"
     class="demo-dynamic"
   >
-  <el-form-item
+    <el-form-item
       v-for="(item, index) in ruleForm.fieldArr"
       :label="'值' + item.name"
       :key="'index' + item.name"
       :prop="'arr.' + index + '.value'"
-      :rules="{ required: true, message: '属性名称不能为空', trigger: ['blur', 'change'] }"
+      :rules="{
+        required: true,
+        message: '属性名称不能为空',
+        trigger: ['blur', 'change']
+      }"
     >
       <el-input v-model.number="item.value"></el-input>
     </el-form-item>
