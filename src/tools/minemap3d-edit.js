@@ -3,8 +3,8 @@
 import * as turf from "@turf/turf";
 
 let gMap = null; // 地图对象
-let points = []; //绘制时鼠标点击的位置 TODO: 格式
-let curPos = null;
+let points = []; //绘制时鼠标点击的位置 格式[[lng,lat], [lng, lat], ...]
+let curPos = null; // 鼠标位置
 
 // 绘制过程中的source和layer的Id
 const DRAW_POINT = "DRAW_POINT";
@@ -14,32 +14,15 @@ const DRAW_POLYGON = "DRAW_POLYGON";
 function addLayers() {
   gMap.addSource(DRAW_POINT, {
     type: "geojson",
-    data: {
-      type: "FeatureCollection",
-      features: [
-        {
-          type: "Feature",
-          geometry: {
-            type: "Point",
-            coordinates: [116.46, 39.92]
-          }
-        }
-      ]
-    }
+    data: null
   });
   gMap.addSource(DRAW_LINE, {
     type: "geojson",
-    data: {
-      type: "FeatureCollection",
-      features: []
-    }
+    data: null
   });
   gMap.addSource(DRAW_POLYGON, {
     type: "geojson",
-    data: {
-      type: "FeatureCollection",
-      features: []
-    }
+    data: null
   });
 
   gMap.addLayer({
@@ -50,7 +33,7 @@ function addLayers() {
       visibility: "visible"
     },
     paint: {
-      "circle-radius": 12,
+      "circle-radius": 6,
       "circle-color": "#0093ff",
       "circle-opacity": 0.8
     }
@@ -64,7 +47,7 @@ function addLayers() {
       "line-cap": "round"
     },
     paint: {
-      "line-width": 12,
+      "line-width": 6,
       "line-color": "#ff4400"
     }
   });
@@ -76,8 +59,8 @@ function addLayers() {
       visibility: "visible"
     },
     paint: {
-      "fill-color": "#00ff00",
-      "fill-opacity": 0.8,
+      "fill-color": "#ff0000",
+      "fill-opacity": 0.4,
       "fill-outline-color": "#ff0000"
     }
   });
@@ -124,32 +107,11 @@ function generatePolygon(points) {
 
 function onMouseClick(e) {
   let p = e.lngLat;
-  console.info(p);
   curPos = [p.lng, p.lat];
   points.push([p.lng, p.lat]);
   // 1.点击后显示第一个点和最后一个点
-  generateMultiPoint([points[0], curPos]);
-  const data = {
-    type: "FeatureCollection",
-    features: [
-      {
-        type: "Feature",
-        geometry: {
-          type: "Point",
-          coordinates: points[0]
-        }
-      },
-      {
-        type: "Feature",
-        geometry: {
-          type: "Point",
-          coordinates: curPos
-        }
-      }
-    ]
-  };
-  console.info(data);
-  gMap.getSource(DRAW_POINT).setData(data);
+  let multiPoint = generateMultiPoint([points[0], curPos]);
+  gMap.getSource(DRAW_POINT).setData(multiPoint);
 }
 
 function onMouseRightClick(e) {
@@ -165,11 +127,11 @@ function onMouseMove(e) {
   }
   // 仅选择了一个点，显示第一个点与当前鼠标位置的连线
   if (points.length < 2) {
-    generateLineString([points[0], curPos]);
+    let lineString = generateLineString([points[0], curPos]);
+    gMap.getSource(DRAW_LINE).setData(lineString);
   } else if (points.length > 2) {
-    console.info(points);
-    let geojson = generatePolygon([[...points, curPos, points[0]]]);
-    console.info(geojson);
+    generatePolygon([[...points, curPos, points[0]]]);
+    // console.info(geojson);
   }
 }
 
@@ -182,6 +144,8 @@ let edit = {
     map.on("click", onMouseClick); // 左键
     map.on("contextmenu", onMouseRightClick); // 右键
     map.on("mousemove", onMouseMove); // 平移
+    // 3.鼠标指针
+    map.getCanvas().style.cursor = "crosshair";
     // map.on('dblclick', onMouseDblClick); // 双击
     // map.on('mouseout', onMouseOut);
     // map.on('mousedown', onMouseDown);
@@ -196,6 +160,8 @@ let edit = {
     gMap.off("click", onMouseClick); // 左键
     gMap.off("contextmenu", onMouseRightClick); // 右键
     gMap.off("mousemove", onMouseMove);
+    // 3.鼠标指针
+    gMap.getCanvas().style.cursor = "default";
   }
 };
 
