@@ -2,8 +2,8 @@
   <div class="container">
     <div id="map"></div>
     <div class="tools">
-      <el-button>开始绘制</el-button>
-      <el-button>重新绘制</el-button>
+      <el-button @click="start" :disabled="btnDisable">开始绘制</el-button>
+      <el-button @click="exit" :disabled="btnDisable">退出绘制</el-button>
     </div>
   </div>
 </template>
@@ -14,7 +14,8 @@ import edit from "../tools/minemap3d-edit";
 export default {
   data() {
     return {
-      map: null
+      map: null,
+      btnDisable: true
     };
   },
   mounted() {
@@ -40,10 +41,15 @@ export default {
         minZoom: 2.0
       });
 
-      // 添加图层
       this.map.on("load", () => {
-        edit.init(this.map);
+        this.btnDisable = false;
       });
+    },
+    start() {
+      edit.init(this.map);
+    },
+    exit() {
+      edit.exit();
     }
   }
 };

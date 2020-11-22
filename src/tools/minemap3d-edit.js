@@ -120,7 +120,7 @@ function addLayers() {
   });
 }
 
-function removeDrawLayers() {
+function removeAllLayers() {
   if (gMap.getLayer(DRAW_POINT)) {
     gMap.removeLayer(DRAW_POINT);
   }
@@ -266,11 +266,14 @@ function stop() {
 }
 
 function clear() {
-  removeDrawLayers();
+  removeAllLayers();
 }
 
 let edit = {
   init(map) {
+    if (gMap) {
+      return;
+    }
     gMap = map;
     // 1.创建点图层、线图层和面图层
     addLayers();
@@ -279,12 +282,25 @@ let edit = {
     map.on("contextmenu", onMouseRightClick); // 右键
     map.on("mousemove", onMouseMove); // 平移
     // 3.鼠标指针
-    console.info(map.getCanvas().style);
     map.getCanvas().style.cursor = "crosshair";
   },
   exit() {
-    stop();
+    if (!gMap) {
+      return;
+    }
+    // 1.取消事件监听
+    gMap.off("click", onMouseClick); // 左键
+    gMap.off("contextmenu", onMouseRightClick); // 右键
+    gMap.off("mousemove", onMouseMove); // 平移
+    // 2.鼠标指针恢复
+    gMap.getCanvas().style.cursor = "";
+    // 3.移除图层
     clear();
+    // 4.变量置空
+    gMap = null; // 地图对象
+    points = []; //绘制时鼠标点击的位置 格式[[lng,lat], [lng, lat], ...]
+    curPos = null; // 鼠标位置
+    lastMouseKey = 0; // 最后一次按下的鼠标按键，左键or右键
   }
 };
 
