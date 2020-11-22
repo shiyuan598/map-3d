@@ -12,7 +12,7 @@ module.exports = {
   },
   rules: {
     "prettier/prettier": "error",
-    "indent": [2, 2],//缩进风格
+    "indent": [2, 2, { "SwitchCase": 1 }],//缩进风格
     "no-console": process.env.NODE_ENV === "production" ? "warn" : "off",
     "no-debugger": process.env.NODE_ENV === "production" ? "warn" : "off"
   }

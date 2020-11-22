@@ -1,5 +1,11 @@
 <template>
-  <div id="map"></div>
+  <div class="container">
+    <div id="map"></div>
+    <div class="tools">
+      <el-button>开始绘制</el-button>
+      <el-button>重新绘制</el-button>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -44,9 +50,24 @@ export default {
 </script>
 
 <style scoped>
-#map {
+#container {
+  position: relative;
   width: 100vw;
   height: 100vh;
   overflow: hidden;
+}
+#map {
+  width: 100vw;
+  height: 100vh;
+}
+.tools {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 100px;
+}
+.el-button + .el-button {
+  margin-left: 0px;
+  margin-top: 10px;
 }
 </style>
