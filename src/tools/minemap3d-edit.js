@@ -17,6 +17,8 @@ const DRAW_POINT = "DRAW_POINT";
 const DRAW_LINE = "DRAW_LINE";
 const DRAW_POLYGON = "DRAW_POLYGON";
 const DRAW_POLYGON_OUTLINE = "DRAW_POLYGON_OUTLINE";
+const RESULT_POLYGON = "RESULT_POLYGON";
+const RESULT_POLYGON_OUTLINE = "RESULT_POLYGON_OUTLINE";
 
 function addLayers() {
   gMap.addSource(DRAW_POINT, {
@@ -76,9 +78,10 @@ function addLayers() {
   });
   gMap.addLayer({
     id: DRAW_POLYGON_OUTLINE,
-    type: "line", //图层类型为"fill"
+    type: "line",
     source: DRAW_POLYGON,
     layout: {
+      visibility: "visible",
       "line-join": "round",
       "line-cap": "round"
     },
@@ -86,6 +89,33 @@ function addLayers() {
       "line-width": 2,
       "line-color": "#F05668",
       "line-dasharray": [0.2, 2]
+    }
+  });
+  gMap.addLayer({
+    id: RESULT_POLYGON,
+    type: "fill", //图层类型为"fill"
+    source: DRAW_POLYGON,
+    layout: {
+      visibility: "visible"
+    },
+    paint: {
+      "fill-color": "#F05668",
+      "fill-opacity": 0.1,
+      "fill-outline-color": "#F05668"
+    }
+  });
+  gMap.addLayer({
+    id: RESULT_POLYGON_OUTLINE,
+    type: "line",
+    source: DRAW_POLYGON,
+    layout: {
+      visibility: "visible",
+      "line-join": "round",
+      "line-cap": "round"
+    },
+    paint: {
+      "line-width": 2,
+      "line-color": "#F05668"
     }
   });
 }
@@ -99,6 +129,15 @@ function removeDrawLayers() {
   }
   if (gMap.getLayer(DRAW_POLYGON)) {
     gMap.removeLayer(DRAW_POLYGON);
+  }
+  if (gMap.getLayer(DRAW_POLYGON_OUTLINE)) {
+    gMap.removeLayer(DRAW_POLYGON_OUTLINE);
+  }
+  if (gMap.getLayer(RESULT_POLYGON)) {
+    gMap.removeLayer(RESULT_POLYGON);
+  }
+  if (gMap.getLayer(RESULT_POLYGON_OUTLINE)) {
+    gMap.removeLayer(RESULT_POLYGON_OUTLINE);
   }
   if (gMap.getSource(DRAW_POINT)) {
     gMap.removeSource(DRAW_POINT);
@@ -135,9 +174,11 @@ function onMouseClick(e) {
     // 如果上次是右键，说明完成了一次绘制，重新开始
     // 1.清空点位数组
     points = [];
-    // 2.隐藏成果图层
+    // 2.隐藏图层
     gMap.getLayer(DRAW_POLYGON).visibility = "none";
     gMap.getLayer(DRAW_POLYGON_OUTLINE).visibility = "none";
+    gMap.getLayer(RESULT_POLYGON).visibility = "none";
+    gMap.getLayer(RESULT_POLYGON_OUTLINE).visibility = "none";
     // 3.注册平移事件
     gMap.on("mousemove", onMouseMove); // 平移事件
     // 4.设置鼠标样式
@@ -164,17 +205,20 @@ function onMouseMove(e) {
   if (points.length < 1) {
     return;
   }
-  // 仅选择了一个点，显示第一个点与当前鼠标位置的连线
   if (points.length < 2) {
+    // 仅选择了一个点，显示第一个点与当前鼠标位置的连线
     let lineString = generateLineString([points[0], curPos]);
     gMap.getSource(DRAW_LINE).setData(lineString);
     gMap.getLayer(DRAW_LINE).visibility = "visible";
   } else if (points.length >= 2) {
+    // 多个点时显示绘制的面
     gMap.getLayer(DRAW_LINE).visibility = "none";
     let polygon = generatePolygon([[...points, curPos, points[0]]]);
     gMap.getSource(DRAW_POLYGON).setData(polygon);
     gMap.getLayer(DRAW_POLYGON).visibility = "visible";
     gMap.getLayer(DRAW_POLYGON_OUTLINE).visibility = "visible";
+    gMap.getLayer(RESULT_POLYGON).visibility = "none";
+    gMap.getLayer(RESULT_POLYGON_OUTLINE).visibility = "none";
   }
 }
 
@@ -213,9 +257,11 @@ function stop() {
   // 3.清空绘制过程中的图层数据
   gMap.getLayer(DRAW_POINT).visibility = "none";
   gMap.getLayer(DRAW_LINE).visibility = "none";
+  gMap.getLayer(DRAW_POLYGON).visibility = "none";
+  gMap.getLayer(DRAW_POLYGON_OUTLINE).visibility = "none";
   // 4.显示绘制结果
-  // gMap.setPaintProperty(DRAW_POLYGON_OUTLINE, "line-dasharray", [2]);
-
+  gMap.getLayer(RESULT_POLYGON).visibility = "visible";
+  gMap.getLayer(RESULT_POLYGON_OUTLINE).visibility = "visible";
   gMap.triggerRepaint();
 }
 
@@ -235,10 +281,6 @@ let edit = {
     // 3.鼠标指针
     console.info(map.getCanvas().style);
     map.getCanvas().style.cursor = "crosshair";
-    // map.on('dblclick', onMouseDblClick); // 双击
-    // map.on('mouseout', onMouseOut);
-    // map.on('mousedown', onMouseDown);
-    // map.on('mouseup', onMouseUp);
   },
   exit() {
     stop();
