@@ -20,7 +20,7 @@ const DRAW_POLYGON_OUTLINE = "DRAW_POLYGON_OUTLINE";
 const RESULT_POLYGON = "RESULT_POLYGON";
 const RESULT_POLYGON_OUTLINE = "RESULT_POLYGON_OUTLINE";
 
-function addLayers() {
+function initLayers() {
   gMap.addSource(DRAW_POINT, {
     type: "geojson",
     data: null
@@ -191,7 +191,6 @@ function onMouseClick(e) {
   gMap.getSource(DRAW_POINT).setData(multiPoint);
   gMap.getLayer(DRAW_POINT).visibility = "visible";
   lastMouseKey = MOUSE_KEY.LEFT;
-  getMaxAge("儿童");
 }
 
 function onMouseRightClick() {
@@ -220,31 +219,6 @@ function onMouseMove(e) {
     gMap.getLayer(RESULT_POLYGON).visibility = "none";
     gMap.getLayer(RESULT_POLYGON_OUTLINE).visibility = "none";
   }
-}
-
-function getMaxAge(key) {
-  let maxAge = 100;
-  switch (key) {
-    case "婴儿":
-      maxAge = 3;
-      break;
-    case "儿童":
-      maxAge = 12;
-      break;
-    case "少年":
-      maxAge = 18;
-      break;
-    case "青年 ":
-      maxAge = 35;
-      break;
-    case "中年":
-      maxAge = 55;
-      break;
-    default:
-      maxAge = 100;
-      break;
-  }
-  return maxAge;
 }
 
 function stop() {
@@ -276,7 +250,7 @@ let edit = {
     }
     gMap = map;
     // 1.创建点图层、线图层和面图层
-    addLayers();
+    initLayers();
     // 2.事件监听
     map.on("click", onMouseClick); // 左键
     map.on("contextmenu", onMouseRightClick); // 右键

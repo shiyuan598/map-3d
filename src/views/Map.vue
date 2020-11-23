@@ -38,7 +38,7 @@ export default {
         pitch: 0,
         // sphereRender: true,
         maxZoom: 21,
-        minZoom: 2.0
+        minZoom: 1.0
       });
 
       this.map.on("load", () => {
