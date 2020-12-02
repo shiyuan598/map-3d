@@ -9,7 +9,12 @@
       stripe
     >
       <el-table-column type="selection" width="50"></el-table-column>
-      <el-table-column prop="name" label="名称" width="180"> </el-table-column>
+      <el-table-column
+        prop="name"
+        label="名称"
+        width="180"
+        :render-header="renderHeader"
+      ></el-table-column>
       <el-table-column prop="value" label="内容"> </el-table-column>
     </el-table>
   </div>
@@ -20,6 +25,7 @@ export default {
   name: "table",
   data() {
     return {
+      name: "名称么",
       tableData: [
         {
           name: "index1",
@@ -46,6 +52,19 @@ export default {
   methods: {
     handleSelection(val) {
       console.info(val);
+    },
+    renderHeader() {
+      return (
+        <div>
+          <span>{this.name}</span>
+          <el-button type="text" onClick={this.btnClick}>
+            <i class="el-icon-loading"></i>
+          </el-button>
+        </div>
+      );
+    },
+    btnClick() {
+      console.info("click");
     }
   }
 };
