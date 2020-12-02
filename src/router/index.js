@@ -58,6 +58,11 @@ const routes = [
     path: "/detail",
     name: "Detail",
     component: () => import("../components/package/PackageDetail.vue")
+  },
+  {
+    path: "/dag",
+    name: "Dag",
+    component: () => import("../views/DAG.vue")
   }
 ];
 
