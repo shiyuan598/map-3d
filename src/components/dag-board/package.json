@@ -1,0 +1,46 @@
+{
+  "_args": [
+    [
+      "dag-board@0.1.23",
+      "E:\\02test\\map-3d"
+    ]
+  ],
+  "_from": "dag-board@0.1.23",
+  "_id": "dag-board@0.1.23",
+  "_inBundle": false,
+  "_integrity": "sha1-8ovEGkuKYEB75+4kAKAdzL7Stq0=",
+  "_location": "/dag-board",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "version",
+    "registry": true,
+    "raw": "dag-board@0.1.23",
+    "name": "dag-board",
+    "escapedName": "dag-board",
+    "rawSpec": "0.1.23",
+    "saveSpec": null,
+    "fetchSpec": "0.1.23"
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "https://registry.npm.taobao.org/dag-board/download/dag-board-0.1.23.tgz",
+  "_spec": "0.1.23",
+  "_where": "E:\\02test\\map-3d",
+  "author": {
+    "name": "murongqimiao@live.cn"
+  },
+  "dependence": {},
+  "description": "a plugin to show DAG graph . 用于流程图或者DAG图展示.",
+  "keywords": [
+    "DAG",
+    "graph"
+  ],
+  "license": "ISC",
+  "main": "index.js",
+  "name": "dag-board",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "0.1.23"
+}
