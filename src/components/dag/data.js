@@ -66,7 +66,7 @@ export const nodesBasic = [
     nodeStyle: {
       border: "2px solid orange",
       "border-radius": 0,
-      height: "40px"
+      height: "32px"
     },
     iconStyle: {
       background: "orange"
