@@ -72,14 +72,7 @@ export default {
           console.info("选中节点");
           break;
         case "addEdge":
-          // data.edges[data.edges.length - 1].style = {
-          //   "stroke-width": "2px",
-          //   stroke: "#0094ff",
-          //   animation: "none",
-          //   "stroke-dasharray": "0px"
-          // };
-          console.info(data, id);
-          console.info("增加连线");
+          console.info(id);
           break;
         default:
           () => {};
@@ -181,6 +174,7 @@ export default {
   height: 100vh;
   overflow: hidden;
   .basic-node {
+    text-align: center;
     margin-top: 5px;
     background: #fff;
     color: black;

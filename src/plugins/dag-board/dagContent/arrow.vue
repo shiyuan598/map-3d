@@ -1,5 +1,4 @@
-// eslint-disable
-<!--  剪头渲染组件  -->
+<!--  箭头渲染组件  -->
 <template>
   <g v-if="this.DataAll">
     <path

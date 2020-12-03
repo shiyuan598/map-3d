@@ -1,3 +1,4 @@
+<!--  画布控制按钮组件  -->
 <template>
   <g>
     <foreignObject width="200px" height="30px" style="position: relative">

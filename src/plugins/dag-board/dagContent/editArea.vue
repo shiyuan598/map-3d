@@ -1,3 +1,4 @@
+<!--  右键菜单组件  -->
 <template>
   <g v-if="isEditAreaShow.value">
     <foreignObject
