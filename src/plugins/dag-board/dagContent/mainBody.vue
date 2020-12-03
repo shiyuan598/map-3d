@@ -23,6 +23,7 @@
             @change="$emit('changeNodeName', item)"
           />
         </div>
+        <!-- 点击后的提示框 -->
         <p v-if="choice.paneNode.indexOf(item.id) !== -1" class="node-pop">
           {{ item.nameDescribe || item.name }}
         </p>
