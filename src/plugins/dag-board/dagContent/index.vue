@@ -504,7 +504,7 @@ export default {
         id: _DataAll.edges.length + 10,
         style: {
           "stroke-width": "2px",
-          stroke: "#ffff10",
+          stroke: "#3498db",
           animation: "none",
           "stroke-dasharray": "0px"
         }

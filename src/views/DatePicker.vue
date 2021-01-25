@@ -10,6 +10,17 @@
       start-placeholder="开始日期"
       end-placeholder="结束日期"
     ></el-date-picker>
+    <div class="content">
+      <p>asdf1</p>
+      <span>span1</span>
+      <p>asdf2</p>
+      <span>span2</span>
+      <p class="big">asdf3</p>
+      <span>span3</span>
+      <p class="big">asdf4</p>
+      <p>asdf5</p>
+      <p class="big">asdf6</p>
+    </div>
   </div>
 </template>
 <script>
@@ -87,5 +98,24 @@ $SelectBackgroundColor: rgba(250, 250, 250, 0.1);
 }
 h6 {
   margin: 20px;
+}
+.content {
+  p {
+    color: #333;
+  }
+  .big {
+    font-size: 20px;
+    font-weight: 700;
+  }
+  p:first-child {
+    color: #58efbd;
+  }
+  p:last-child {
+    color: #ffceeb;
+  }
+  p:nth-child(2) {
+    color: #58efbd;
+    font-size: 24px;
+  }
 }
 </style>
