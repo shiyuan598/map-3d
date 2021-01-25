@@ -60,6 +60,11 @@ const routes = [
     component: () => import("../components/package/PackageDetail.vue")
   },
   {
+    path: "/layui",
+    name: "LayUI",
+    component: () => import("../views/LayUI.vue")
+  },
+  {
     path: "/dag",
     name: "Dag",
     component: () => import("../views/DAG.vue")
